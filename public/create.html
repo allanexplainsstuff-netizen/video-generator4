@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Video Script</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Create Video Script</h1>
+    <form id="generateForm">
+      <label for="prompt">Describe your video idea:</label>
+      <textarea id="prompt" name="prompt" rows="5" required></textarea>
+
+      <label for="image">Optional image (JPG/PNG, &lt;2 MB):</label>
+      <input type="file" id="image" name="image" accept="image/jpeg,image/png">
+
+      <button type="submit" class="btn">Generate</button>
+    </form>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
