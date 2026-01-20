@@ -8,7 +8,6 @@ document.getElementById('generateForm').addEventListener('submit', async (e) => 
 
   try {
     let finalPrompt = prompt;
-  let finalPrompt = prompt;
 
 if (imageFile) {
   try {
@@ -44,3 +43,4 @@ function fileToBase64(file) {
   });
 
 }
+
