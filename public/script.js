@@ -8,14 +8,28 @@ document.getElementById('generateForm').addEventListener('submit', async (e) => 
 
   try {
     let finalPrompt = prompt;
-    if (imageFile) {
-      const base64 = await fileToBase64(imageFile);
-      const geminiRes = await analyzeImage(base64, prompt);
-      finalPrompt = geminiRes.enhancedPrompt || prompt;
-    }
-    const openaiRes = await generateVideoScript(finalPrompt);
-    localStorage.setItem('videoScript', openaiRes.script || openaiRes.text || JSON.stringify(openaiRes));
-    location.href = 'result.html';
+  let finalPrompt = prompt;
+
+if (imageFile) {
+  try {
+    const base64 = await fileToBase64(imageFile);
+    const geminiRes = await analyzeImage(base64, prompt);
+    finalPrompt = geminiRes.enhancedPrompt || prompt;
+  } catch (err) {
+    console.warn("Gemini failed, falling back to OpenAI:", err);
+    finalPrompt = prompt;
+  }
+}
+
+const openaiRes = await generateVideoScript(finalPrompt);
+
+localStorage.setItem(
+  'videoScript',
+  openaiRes.script || openaiRes.text || JSON.stringify(openaiRes)
+);
+
+location.href = 'result.html';
+  
   } catch (err) {
     alert('Error: ' + err.message);
   }
@@ -28,4 +42,5 @@ function fileToBase64(file) {
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
+
 }
